@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How This Was Built</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #FAFAF7;
+      --text: #1a1a1a;
+      --text-secondary: #6b6b6b;
+      --accent: #6C2BD9;
+      --accent-light: #F3EEFE;
+      --border: #e8e8e4;
+      --card-bg: #FFFFFF;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .hero {
+      padding: 6rem 0 4rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero .back {
+      display: inline-block;
+      font-size: 0.8rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .hero .back:hover { text-decoration: underline; }
+
+    .hero h1 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    section {
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section:last-of-type { border-bottom: none; }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+    }
+
+    p { margin-bottom: 1rem; font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; }
+    p:last-child { margin-bottom: 0; }
+
+    .source-list {
+      list-style: none;
+      margin-top: 0.5rem;
+    }
+
+    .source-list li {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 1rem;
+      align-items: baseline;
+    }
+
+    .source-list li:last-child { border-bottom: none; }
+
+    .source-tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 0.2em 0.6em;
+      border-radius: 4px;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .source-list .source-text {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .source-list .source-detail {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+
+    .stack-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .stack-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+
+    .stack-item h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .stack-item p {
+      font-size: 0.8rem;
+      margin-bottom: 0;
+    }
+
+    .timeline {
+      list-style: none;
+      margin-top: 1rem;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .timeline li {
+      padding: 0.75rem 0 0.75rem 2rem;
+      position: relative;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .timeline li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 1.05rem;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      border: 2px solid var(--accent);
+    }
+
+    .timeline .step-label {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .timeline .step-detail {
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="hero">
+    <a href="for-henrik.html" class="back">&larr; Back to microsite</a>
+    <h1>How this was built</h1>
+    <p>This page documents the research, tools, and thinking behind a personalized conversation canvas built for a coffee chat with Henrik Berggren, Head of Product & Design at Mutiny.</p>
+  </div>
+
+  <!-- WHY -->
+  <section>
+    <p class="section-label">The concept</p>
+    <h2>A reverse Mutiny</h2>
+    <p>Mutiny builds 1:1 personalized microsites to help companies close enterprise deals. The core product uses AI to research a target account, personalize content to their needs, and deliver it as a tailored web experience.</p>
+    <p>This microsite applies the same logic in reverse: I'm the seller, Henrik and Mutiny are the account, and the "AI research" was real research into who Henrik is, what he's built, what he values, and what he's looking for in a Senior Product Designer.</p>
+    <p>It was designed as a live screen-share companion during a 30-minute conversation &mdash; not a presentation, but an open notebook on the table between two people.</p>
+  </section>
+
+  <!-- PROCESS -->
+  <section>
+    <p class="section-label">Process</p>
+    <h2>How it came together</h2>
+    <ul class="timeline">
+      <li>
+        <span class="step-label">Research phase</span><br>
+        <span class="step-detail">Three parallel research agents analyzed Henrik's background, Mutiny's product, and the interview process &mdash; one writing a conversation script, one simulating Henrik's perspective, one providing strategic analysis from a Head of Product lens.</span>
+      </li>
+      <li>
+        <span class="step-label">Concept</span><br>
+        <span class="step-detail">The "reverse Mutiny" idea emerged from the meta-connection: demonstrating understanding of the product by using its own methodology. The UX shifted from a traditional microsite to a "conversation canvas" once the decision was made to screen-share live.</span>
+      </li>
+      <li>
+        <span class="step-label">Content architecture</span><br>
+        <span class="step-detail">Every section maps to a specific signal Henrik scans for in candidates (sourced from research). The structure follows the natural flow of a hiring conversation, not a portfolio structure.</span>
+      </li>
+      <li>
+        <span class="step-label">Design + build</span><br>
+        <span class="step-detail">Single HTML file, no frameworks. Typography and spacing chosen to echo the minimal, craft-first aesthetic Henrik values (informed by Readmill's design philosophy). Built to be scrolled casually, not clicked through.</span>
+      </li>
+      <li>
+        <span class="step-label">Personalization</span><br>
+        <span class="step-detail">Content was personalized using Bobby Kenner's actual project history and design philosophy, mapped against Mutiny's stated needs and Henrik's known evaluation criteria.</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- DATA SOURCES -->
+  <section>
+    <p class="section-label">Data sources</p>
+    <h2>Research that informed the personalization</h2>
+
+    <ul class="source-list">
+      <li>
+        <span class="source-tag">Henrik</span>
+        <div>
+          <span class="source-text">Henrik Berggren &mdash; personal website</span>
+          <span class="source-detail">Self-description, career narrative, side projects (Ritual, Curator), values</span>
+        </div>
+      </li>
+      <li>
+        <span class="source-tag">Henrik</span>
+        <div>
+          <span class="source-text">Henrik Berggren &mdash; LinkedIn profile &amp; posts</span>
+          <span class="source-detail">Career arc from Doberman to Mutiny, joining announcement, Neo mentorship, angel investing</span>
+        </div>
+      </li>
+      <li>
+        <span class="source-tag">Henrik</span>
+        <div>
+          <span class="source-text">Readmill &mdash; TechCrunch, BookMachine interviews</span>
+          <span class="source-detail">Design philosophy ("the best reading experience imaginable"), Dropbox acquisition context</span>
+        </div>
+      </li>
+      <li>
+        <span class="source-tag">Henrik</span>
+        <div>
+          <span class="source-text">Steady Health &mdash; founding story</span>
+          <span class="source-detail">Personal motivation (Type 1 diabetes), 0-to-1 builder pattern, Carbon Health acquisition</span>
+        </div>
+      </li>
+      <li>
+        <span class="source-tag">Mutiny</span>
+        <div>
+          <span class="source-text">Mutiny product pages</span>
+          <span class="source-detail">Website personalization, microsites, ABM campaigns, Campaign Builder, Creative Agent, Account Studio</span>
+        </div>
+      </li>
+      <li>
+        <span class="source-tag">Mutiny</span>
+        <div>
+          <span class="source-text">Mutiny company values blog</span>
+          <span class="source-detail">"Work should feel like play," "Faster always wins," "Stir the pot," "Live in the world you want to change"</span>
+        </div>
+      </li>
+      <li>
+        <span class="source-tag">Mutiny</span>
+        <div>
+          <span class="source-text">Mutiny engineering values blog</span>
+          <span class="source-detail">EPD collaboration model, "own it end-to-end," pragmatic prioritization, customer proximity</span>
+        </div>
+      </li>
+      <li>
+        <span class="source-tag">Mutiny</span>
+        <div>
+          <span class="source-text">Senior Product Designer job posting (Greenhouse)</span>
+          <span class="source-detail">Role scope, comp range, team structure, requirements, Workflows team focus</span>
+        </div>
+      </li>
+      <li>
+        <span class="source-tag">Mutiny</span>
+        <div>
+          <span class="source-text">Sequoia Capital &mdash; Jaleh Rezaei spotlight</span>
+          <span class="source-detail">Founding story, company trajectory, funding context</span>
+        </div>
+      </li>
+      <li>
+        <span class="source-tag">Mutiny</span>
+        <div>
+          <span class="source-text">Contrary Research &mdash; Mutiny business breakdown</span>
+          <span class="source-detail">Market positioning, competitive landscape, growth trajectory</span>
+        </div>
+      </li>
+      <li>
+        <span class="source-tag">Mutiny</span>
+        <div>
+          <span class="source-text">Y Combinator &mdash; Mutiny company page</span>
+          <span class="source-detail">Founding batch (S18), co-founders, initial positioning</span>
+        </div>
+      </li>
+      <li>
+        <span class="source-tag">Role</span>
+        <div>
+          <span class="source-text">Mutiny interview guide</span>
+          <span class="source-detail">4-step process, evaluation criteria per stage, interviewers, preparation guidance</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- STACK -->
+  <section>
+    <p class="section-label">Technical details</p>
+    <h2>How it's built</h2>
+
+    <div class="stack-grid">
+      <div class="stack-item">
+        <h3>HTML + CSS</h3>
+        <p>Single file, no build step, no frameworks, no JavaScript dependencies</p>
+      </div>
+      <div class="stack-item">
+        <h3>Typography</h3>
+        <p>Instrument Serif (display) + Inter (body) via Google Fonts</p>
+      </div>
+      <div class="stack-item">
+        <h3>Hosting</h3>
+        <p>GitHub repo deployed to Vercel</p>
+      </div>
+      <div class="stack-item">
+        <h3>Research</h3>
+        <p>Three parallel AI agents analyzing public sources, cross-referenced</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSE -->
+  <section style="text-align:center; padding:6rem 0;">
+    <p style="font-size:0.9rem; color:var(--text-secondary);">Built by Bobby Kenner &mdash; February 2026</p>
+  </section>
+
+</div>
+
+</body>
+</html>
