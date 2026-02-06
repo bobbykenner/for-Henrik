@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Henrik</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #FAFAF7;
+      --text: #1a1a1a;
+      --text-secondary: #6b6b6b;
+      --accent: #6C2BD9;
+      --accent-light: #F3EEFE;
+      --border: #e8e8e4;
+      --card-bg: #FFFFFF;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* -- Scroll progress bar -- */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: var(--accent);
+      width: 0%;
+      z-index: 100;
+      transition: width 0.1s linear;
+    }
+
+    /* -- Layout -- */
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    section {
+      padding: 6rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section:last-of-type {
+      border-bottom: none;
+    }
+
+    /* -- Hero -- */
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
+      padding: 4rem 0;
+    }
+
+    .hero .tagline {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--accent);
+      margin-bottom: 3rem;
+      letter-spacing: 0.01em;
+    }
+
+    .hero h1 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(2.8rem, 5vw, 3.8rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero .meta {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .hero .meta span {
+      margin-right: 2rem;
+    }
+
+    /* -- Section headers -- */
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin-bottom: 2.5rem;
+    }
+
+    /* -- Cards -- */
+    .cards {
+      display: grid;
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+    }
+
+    .card .card-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* -- Project blocks -- */
+    .project {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .project:hover {
+      border-color: var(--accent);
+    }
+
+    .project-image {
+      width: 100%;
+      height: 280px;
+      background: linear-gradient(135deg, var(--accent-light) 0%, #E8E0F8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .project-content {
+      padding: 2rem;
+    }
+
+    .project-content .project-framing {
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .project-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+
+    .project-content p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .project-content .outcome {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* -- POV section -- */
+    .pov-block {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 12px 12px 0;
+      padding: 2.5rem;
+    }
+
+    .pov-block p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .pov-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    .pov-block .pov-note {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-style: italic;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* -- Questions list -- */
+    .questions-list {
+      list-style: none;
+      counter-reset: q;
+    }
+
+    .questions-list li {
+      counter-increment: q;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 1.05rem;
+      line-height: 1.5;
+      display: flex;
+      gap: 1.25rem;
+      align-items: baseline;
+    }
+
+    .questions-list li:last-child {
+      border-bottom: none;
+    }
+
+    .questions-list li::before {
+      content: counter(q, decimal-leading-zero);
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 1.4rem;
+      color: var(--accent);
+      flex-shrink: 0;
+      line-height: 1;
+      position: relative;
+      top: 2px;
+    }
+
+    .questions-list .q-context {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 0.4rem;
+      font-style: italic;
+    }
+
+    /* -- Fit grid -- */
+    .fit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--card-bg);
+    }
+
+    .fit-grid .col-header {
+      padding: 1.25rem 1.5rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .fit-grid .col-header:first-child {
+      border-right: 1px solid var(--border);
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .fit-grid .fit-row {
+      display: contents;
+    }
+
+    .fit-grid .fit-cell {
+      padding: 1.25rem 1.5rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .fit-grid .fit-cell:nth-child(odd) {
+      border-right: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    .fit-grid .fit-row:last-child .fit-cell {
+      border-bottom: none;
+    }
+
+    /* -- Close -- */
+    .close-section {
+      text-align: center;
+      padding: 8rem 0;
+    }
+
+    .close-section h2 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+    }
+
+    .close-section p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      max-width: 400px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* -- Placeholder markers (unused, all filled) -- */
+
+    /* -- Responsive -- */
+    @media (max-width: 600px) {
+      .container {
+        padding: 0 1.25rem;
+      }
+
+      section {
+        padding: 4rem 0;
+      }
+
+      .fit-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .fit-grid .fit-cell:nth-child(odd) {
+        border-right: none;
+      }
+
+      .fit-grid .col-header:first-child {
+        border-right: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="container">
+
+  <!-- ================================ -->
+  <!-- HERO -->
+  <!-- ================================ -->
+  <div class="hero">
+    <p class="tagline">A personalized microsite for Henrik. Because that felt right.</p>
+    <h1>I'm Bobby Kenner.<br>I make complex systems<br><em>legible</em> to humans.</h1>
+    <div class="meta">
+      <span>Senior Product Designer</span>
+      <span>February 6, 2026</span>
+    </div>
+  </div>
+
+  <!-- ================================ -->
+  <!-- WHAT I BRING -->
+  <!-- ================================ -->
+  <section>
+    <p class="section-label">What I bring to Mutiny</p>
+    <h2 class="section-title">Three things that matter for the Campaign Builder & Creative Agent</h2>
+
+    <div class="cards">
+      <div class="card">
+        <p class="card-label">AI-native interaction design</p>
+        <h3>I've designed the space between human judgment and AI generation</h3>
+        <p>At Grammarly, I conceived and built SYNTHIA &mdash; a framework for grounding AI agent development in real human needs, not model capabilities. I also designed the AI Memory &amp; Unwanted Tracking surfaces, defining where an AI system should remember, forget, and ask permission. The core challenge was always the same: how do you make an AI system's behavior legible enough for a human to trust it?</p>
+      </div>
+
+      <div class="card">
+        <p class="card-label">Complex workflows, simple interfaces</p>
+        <h3>Enterprise power without enterprise bloat</h3>
+        <p>I designed the cross-product identity platform spanning Superhuman, Grammarly, and Coda &mdash; authentication, SSO, encryption key management, privacy controls, and admin tools across three brands with different user mental models. Before that, I led the design system at Grubhub that scaled across Grubhub, Seamless, and Eat24 simultaneously. I find the elegance inside enterprise complexity.</p>
+      </div>
+
+      <div class="card">
+        <p class="card-label">Builder speed</p>
+        <h3>I ship the strong 80% on Monday</h3>
+        <p>I was the first designer at Grammarly to demo a coded Playground prototype to the full org &mdash; then built it into internal tools, a Figma plugin, and a SwiftUI app. I build to learn. Something is good enough when core principles are satisfied, major harm vectors are addressed, and remaining issues are reversible. Perfection isn't required. Integrity is.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================ -->
+  <!-- RELEVANT WORK -->
+  <!-- ================================ -->
+  <section>
+    <p class="section-label">Work that's relevant</p>
+    <h2 class="section-title">Problems like yours that I've solved</h2>
+
+    <div class="project">
+      <div class="project-image" style="background:none;overflow:hidden;"><img src="synthia.png" alt="SYNTHIA Framework" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;"></div>
+      <div class="project-content">
+        <p class="project-framing">Relates to: AI content generation + human trust</p>
+        <h3>SYNTHIA &mdash; Grounding AI agents in human needs</h3>
+        <p>The problem: AI agent development was optimizing for model capability, not user reality. Teams were building what the model could do, not what humans actually needed. I conceived and built SYNTHIA &mdash; a user-centered framework that makes AI agent behavior legible, steerable, and grounded in real workflows. This wasn't just a design system for AI &mdash; it was a way of thinking about the collaboration loop between human judgment and machine generation.</p>
+        <p class="outcome">Awarded "Most Innovative" at company hackathon. Extended into a reusable platform skill adopted across teams.</p>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-image" style="height:480px;background:none;overflow:hidden;"><img src="superhuman-auth.png" alt="Cross-Product Identity Platform" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;"></div>
+      <div class="project-content">
+        <p class="project-framing">Relates to: Complex workflow made intuitive</p>
+        <h3>id.superhuman.com &mdash; One identity system, three products, three brands</h3>
+        <p>Superhuman acquired Grammarly, which had acquired Coda. Each product had different auth flows, different user mental models, and different security requirements. I designed the unified identity platform &mdash; authentication, SSO, BYOK encryption, privacy controls, and enterprise admin tools &mdash; that needed to feel native to each brand while running on a single system. The complexity was in the account hierarchy, the threat modeling, and making enterprise key management feel simple. I operated as the translation layer between backend capability and user-facing clarity.</p>
+        <p class="outcome">Scalable cross-product auth foundation launched with Superhuman.com. Refined Critical User Journeys used to align three engineering teams.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================ -->
+  <!-- POV -->
+  <!-- ================================ -->
+  <section>
+    <p class="section-label">An initial point of view</p>
+    <h2 class="section-title">How I'd think about the Creative Agent</h2>
+
+    <div class="pov-block">
+      <p>The core tension I see: the Creative Agent needs to feel <strong>fast enough to be worth using</strong> and <strong>trustworthy enough that a marketer at Qualtrics would put their brand behind it</strong>. Those pull in opposite directions.</p>
+
+      <p>My instinct is that the answer isn't a binary "approve/reject" gate. It's designing a <strong>collaboration loop</strong> &mdash; where the AI generates, the human steers, and each cycle makes the output more aligned. The interface shouldn't ask "is this right?" It should ask "which direction?"</p>
+
+      <p>The biggest design risk is building something that feels like a chatbot with a publish button. The opportunity is making it feel like a creative partner that already knows your brand, your audience, and your intent.</p>
+
+      <p class="pov-note">This is a starting intuition, not a proposal. I'd want to talk to your customers and see the current experience before going deeper &mdash; but I wanted you to know I've been thinking about it.</p>
+    </div>
+  </section>
+
+  <!-- ================================ -->
+  <!-- THE FIT -->
+  <!-- ================================ -->
+  <section>
+    <p class="section-label">The fit</p>
+    <h2 class="section-title">Your needs, my evidence</h2>
+
+    <div class="fit-grid">
+      <div class="col-header">What Henrik is looking for</div>
+      <div class="col-header">What I bring</div>
+
+      <div class="fit-row">
+        <div class="fit-cell">Product intuition, not just design skill</div>
+        <div class="fit-cell">Led cross-product identity orchestration across Superhuman, Grammarly, and Coda &mdash; defining the problem space and constraints alongside PM and engineering, not waiting for a brief</div>
+      </div>
+
+      <div class="fit-row">
+        <div class="fit-cell">Comfort with AI-native patterns</div>
+        <div class="fit-cell">Built SYNTHIA (AI agent grounding framework), designed AI Memory &amp; tracking controls, agent mental model systems, and LLM evaluation tooling UX &mdash; all centered on trust, transparency, and human control</div>
+      </div>
+
+      <div class="fit-row">
+        <div class="fit-cell">Craft sensibility in the details</div>
+        <div class="fit-cell">Built the Cookbook design system at Grubhub from scratch &mdash; token-based theming, accessibility foundations, component governance &mdash; scaling across three brands. I design restraint, not excess</div>
+      </div>
+
+      <div class="fit-row">
+        <div class="fit-cell">Ships fast, iterates with real data</div>
+        <div class="fit-cell">First designer to demo a coded AI prototype org-wide. Built Playground skills, a Figma plugin, a SwiftUI app, and internal tools &mdash; I build to learn, then refine with real usage</div>
+      </div>
+
+      <div class="fit-row">
+        <div class="fit-cell">End-to-end ownership</div>
+        <div class="fit-cell">From identity threat modeling to shipped auth platform &mdash; research, CUJs, specs, prototypes, QA, and cross-team translation. I surface ambiguity early and own it through launch</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================ -->
+  <!-- QUESTIONS -->
+  <!-- ================================ -->
+  <section>
+    <p class="section-label">Things I'm curious about</p>
+    <h2 class="section-title">Questions for you, Henrik</h2>
+
+    <ul class="questions-list">
+      <li>
+        <div>
+          You've built from zero multiple times &mdash; Readmill, Steady Health &mdash; and scaled at Dropbox and Big Health. Where does Mutiny sit on that spectrum right now, and what does that mean for how design operates?
+          <span class="q-context">Understanding the stage so I know what kind of designer to be on day one</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          What's the biggest unsolved design problem in the Campaign Builder or Creative Agent today?
+          <span class="q-context">I want to know what the real work looks like, not the job posting version</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          Mutiny's product is becoming more agentic &mdash; AI that researches, generates, and acts. How are you thinking about the human's role in that loop long-term &mdash; more co-pilot, or more autopilot?
+          <span class="q-context">This shapes every design decision in the product</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          You lead Product and Design together. How does that change the way designers operate here compared to orgs where those are separate?
+          <span class="q-context">Signal that I've noticed his dual role and I'm thinking about what it means for collaboration</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          What made you leave Big Health for Mutiny? What was the pull?
+          <span class="q-context">Get him talking about what excites him &mdash; his answer tells me what he values</span>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ================================ -->
+  <!-- CLOSE -->
+  <!-- ================================ -->
+  <section class="close-section">
+    <h2>Excited to go deeper.</h2>
+    <p>The design problem at the center of Mutiny &mdash; making AI-generated personalization trustworthy at enterprise scale &mdash; is exactly what I want to spend the next few years on.</p>
+  </section>
+
+</div>
+
+<script>
+  // Scroll progress bar
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
+  });
+</script>
+
+</body>
+</html>
